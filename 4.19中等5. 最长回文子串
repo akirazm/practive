@@ -1,0 +1,31 @@
+class Solution {
+public:
+    pair<int, int>kuosan(string& s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        return { left + 1,right - 1 };
+    }
+    
+    string longestPalindrome(string s) {
+        if (s.size() < 1) {
+            return s;
+        }
+        int frist = 0, end = 0;
+        for (int i = 0; i < s.size(); i++) {
+            
+                auto [left1, right1] = kuosan(s, i, i );
+                auto [left2, right2] = kuosan(s, i, i+ 1);
+                if (right1 - left1 > end - frist) {
+                frist = left1;
+                end = right1;
+            }
+                if (right2 - left2 > end - frist) {
+                frist = left2;
+                end = right2;
+            }
+        }
+        return s.substr( frist, end - frist + 1);
+    }
+};
