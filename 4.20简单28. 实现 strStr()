@@ -20,3 +20,27 @@ public:
         return -1;
     }
 };
+优化
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if(needle.size()==0){
+            return 0;
+        }
+        int start=0,lon=needle.size();
+        for(;start+lon-1<haystack.size();start++){
+            if(haystack[start]==needle[0]&&haystack[start+lon-1]==needle[lon-1]){
+                for(int l=0,s=start;l<needle.size();s++,l++){
+                    if(haystack[s]!=needle[l]){
+                        l=needle.size()+1;
+                    }
+                    if(l==needle.size()-1){
+                        return start;
+                    }    
+                }  
+            }
+        }
+        return -1;
+    }
+};
+
