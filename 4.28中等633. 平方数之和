@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        if(c==0){
+            return true;
+        }
+        for(long i=0;(i*i)<c;i++){
+            double t=sqrt(c-(i*i));
+            if(t-(int)t==0){
+                return true;
+            }
+        }
+         return false;
+    }
+};
