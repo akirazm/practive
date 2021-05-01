@@ -1,0 +1,28 @@
+/*
+// Definition for Employee.
+class Employee {
+public:
+    int id;
+    int importance;
+    vector<int> subordinates;
+};
+*/
+class Solution 
+{
+public:
+    int getImportance(vector<Employee*> employees, int id) 
+    {
+        unordered_map<int, Employee *> um;
+        for (Employee * e : employees)  um[e->id] = e;
+
+        std::function<int (int)> dfs = [&](int xID)
+        {
+            Employee * e = um[xID];
+            int tot_sum = e->importance;
+            for (int yID : e->subordinates) tot_sum += dfs(yID); 
+            return tot_sum;
+        };
+
+        return dfs(id);
+    }
+};
