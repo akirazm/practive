@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        stack<char> lstack;
+        queue<char> lqueue;
+        stack<char> resStack;
+
+        for(char& letter:s){
+            if(letter!=')'){
+                lstack.push(letter);
+            }else{
+                while(lstack.top()!='('){
+                    lqueue.push(lstack.top());
+                    lstack.pop();
+                }
+                lstack.pop();
+                while(!lqueue.empty()){
+                    lstack.push(lqueue.front());
+                    lqueue.pop();
+                }
+            }
+        }
+
+        string res;
+
+        while(!lstack.empty()){
+            resStack.push(lstack.top());
+            lstack.pop();
+        }
+        while(!resStack.empty()){
+            res+=resStack.top();
+            resStack.pop();
+        }
+        return res;
+    }
+};
+
+//一直进栈 直到')' 弹出入队 直到'('入栈
