@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if(n <= 0) return false;
+        double num=pow(n,0.25);
+        num=pow(num,4);
+        if(num-n==0) return true;
+        else return false;
+    }
+};
