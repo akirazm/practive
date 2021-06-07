@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        // add部分 - minus部分 = target
+        // add部分 + minus部分 = sum
+        // 联立1 2式消掉minus部分, 则只用考虑add即加法部分
+        int sum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i]; // 计算总和
+        } 
+        if ((sum + target) % 2) return 0; // 如果余1, 说明add部分的总和不是整数
+        int bagSize = (sum + target) / 2; // add部分的总和, 相当于背包
+        vector<int> dp(bagSize + 1); // 现在往背包里装数, 问题转换为01背包问题
+        dp[0] = 1;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = bagSize; j >= nums[i]; j--) {
+                dp[j] += dp[j - nums[i]]; // 得到一种新的组合, 因此是+=
+            }
+        }
+        return dp[bagSize];
+    }
+};
+
+作者：husysg
+链接：https://leetcode-cn.com/problems/target-sum/solution/cdong-tai-gui-hua-chao-xiang-xi-zhu-shi-l4pwv/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
