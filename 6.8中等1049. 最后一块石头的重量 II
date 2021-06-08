@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int lastStoneWeightII(vector<int> &stones) {
+        int sum = accumulate(stones.begin(), stones.end(), 0);
+        int m = sum / 2;
+        vector<int> dp(m + 1);
+        dp[0] = true;
+        for (int weight : stones) {
+            for (int j = m; j >= weight; --j) {
+                dp[j] = dp[j] || dp[j - weight];
+            }
+        }
+        for (int j = m;; --j) {
+            if (dp[j]) {
+                return sum - 2 * j;
+            }
+        }
+    }
+};
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/last-stone-weight-ii/solution/zui-hou-yi-kuai-shi-tou-de-zhong-liang-i-95p9/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
