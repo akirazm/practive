@@ -1,0 +1,33 @@
+class TimeMap {
+public:
+    /** Initialize your data structure here. */
+    TimeMap(){
+    }
+    
+    void set(string key, string value, int timestamp) {
+        auto it = mp.find(key);
+        if (it != mp.end())
+        {
+            it->second[timestamp] = value;
+        }
+        else
+        {
+            mp[key] = map<int, string, greater<int>>(greater<int>());
+            mp[key][timestamp] = value;
+        }
+    }
+    
+    string get(string key, int timestamp) {
+        auto it = mp.find(key);
+        if (it != mp.end())
+        {
+            auto it_ans = it->second.lower_bound(timestamp);
+            if (it_ans != it->second.end())
+            {
+                return it_ans->second;
+            }
+        }
+        return "";
+    }
+    unordered_map<string, map<int, string, greater<int>>> mp;
+};
